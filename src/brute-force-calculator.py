@@ -41,9 +41,17 @@ def load_data():
 # -------------------------
 def precompute_relation_type_to_chars(rel_groups_df):
     reltype_to_chars = {}
+    # This step precomputes the characters associated with each relation type
+    # This is done to avoid having to group by relation type for each parent pair
+    # This should reduce the number of times we need to access the relation groups dataframe
     for _, group in rel_groups_df.groupby('relation_type'):
+        # Get the relation type for this group
         rel_type = group['relation_type'].iloc[0]
+        
+        # Get the unique character IDs for this relation type
         char_ids = group['chara_id'].unique()
+        
+        # Add the character IDs to the dictionary with the relation type as the key
         reltype_to_chars[rel_type] = set(char_ids)
     return reltype_to_chars
 
@@ -57,6 +65,7 @@ def calculate_compatibility(rel_types_dict, reltype_to_chars, main_char, O, K, Z
         points = row["relation_point"]
         group = reltype_to_chars.get(rel_type, set())
 
+        # This section of code has been modified to work in Python. Credit: https://gametora.com
         if O in group and K in group:
             comp += points
         if O in group and main_char in group:
@@ -84,6 +93,7 @@ def calculate_parent_score(rel_types_dict, reltype_to_chars, main_char, O, K):
         points = row["relation_point"]
         group = reltype_to_chars.get(rel_type, set())
 
+        # Credit to https://gametora.com for the original compatibility function
         if O in group and K in group:
             score += points
         if O in group and main_char in group:
@@ -143,7 +153,12 @@ def parallel_brute_force(avail_chars_df, rel_types_df, reltype_to_chars, main_ch
     # Print the top 3 parent scores for reference
     print("Top 3 parent pair scores:")
     for pair, score in scored_pairs[:3]:
-        print(f"  {pair}: {score}")
+        name1 = avail_chars_df[avail_chars_df['chara_id'] == pair[0]]['en_name'].iloc[0]
+        name2 = avail_chars_df[avail_chars_df['chara_id'] == pair[1]]['en_name'].iloc[0]
+
+        # Calculate the maximum length of the first character's name for printing
+        max_name1_len = max([len(avail_chars_df[avail_chars_df['chara_id'] == pair[0]]['en_name'].iloc[0]) for pair in all_parent_pairs])
+        print(f"  {name1:{max_name1_len+1}} : {name2} - {score}")
 
     print(f"Total combinations to calculate: {len(all_parent_pairs)} parent pairs")
 
@@ -208,12 +223,12 @@ if __name__ == "__main__":
     for fam, score in top_results:
         try:
             results.append({
-                "Parent 1 (O)": f"{id_to_name.get(fam['O'], fam['O'])} ({fam['O']})",
-                "GP1 (Z)": f"{id_to_name.get(fam['Z'], fam['Z'])} ({fam['Z']})",
-                "GP2 (J)": f"{id_to_name.get(fam['J'], fam['J'])} ({fam['J']})",
-                "Parent 2 (K)": f"{id_to_name.get(fam['K'], fam['K'])} ({fam['K']})",
-                "GP3 (X)": f"{id_to_name.get(fam['X'], fam['X'])} ({fam['X']})",
-                "GP4 (Y)": f"{id_to_name.get(fam['Y'], fam['Y'])} ({fam['Y']})",
+                "Parent 1 (O)": f"{id_to_name.get(fam['O'], fam['O'])}",
+                "GP1 (Z)": f"{id_to_name.get(fam['Z'], fam['Z'])}",
+                "GP2 (J)": f"{id_to_name.get(fam['J'], fam['J'])}",
+                "Parent 2 (K)": f"{id_to_name.get(fam['K'], fam['K'])}",
+                "GP3 (X)": f"{id_to_name.get(fam['X'], fam['X'])}",
+                "GP4 (Y)": f"{id_to_name.get(fam['Y'], fam['Y'])}",
                 "Score": score
             })
         except KeyError as e:
