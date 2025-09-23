@@ -12,3 +12,6 @@ Calculates highest scoring affinities based on top 3 parent combinations.
     This will save the owned characters to `data/ownedCharacters.json`.
 - Run `brute-force-calculator.py` to calculate affinities.
   - If `data/ownedCharacters.json` doesn't exist, it will use `data/availChars.json` instead. This will take longer to calculate affinity scores.
+
+## Credits
+- [Gametora](https://gametora.com/umamusume/en) for providing the character and relationship data.
