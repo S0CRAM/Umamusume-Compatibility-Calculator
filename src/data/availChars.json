@@ -16,6 +16,10 @@
     "en_name": "Maruzensky"
   },
   {
+    "char_id": 1005,
+    "en_name": "Fuji Kiseki"
+  },
+  {
     "char_id": 1006,
     "en_name": "Oguri Cap"
   },
@@ -88,6 +92,10 @@
     "en_name": "Mejiro Ryan"
   },
   {
+    "char_id": 1028,
+    "en_name": "Hishi Akebono"
+  },
+  {
     "char_id": 1030,
     "en_name": "Rice Shower"
   },
@@ -100,8 +108,16 @@
     "en_name": "Winning Ticket"
   },
   {
+    "char_id": 1037,
+    "en_name": "Eishin Flash"
+  },
+  {
     "char_id": 1038,
     "en_name": "Curren Chan"
+  },
+  {
+    "char_id": 1040,
+    "en_name": "Gold City"
   },
   {
     "char_id": 1041,
@@ -126,6 +142,10 @@
   {
     "char_id": 1056,
     "en_name": "Matikanefukukitaru"
+  },
+  {
+    "char_id": 1058,
+    "en_name": "Meisho Doto"
   },
   {
     "char_id": 1060,
