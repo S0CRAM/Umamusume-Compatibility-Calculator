@@ -14,4 +14,4 @@ Calculates highest scoring affinities based on top 3 parent combinations.
   - If `data/ownedCharacters.json` doesn't exist, it will use `data/availChars.json` instead. This will take longer to calculate affinity scores.
 
 ## Credits
-- [Gametora](https://gametora.com/umamusume/en) for providing the character and relationship data.
+- [Gametora](https://gametora.com/umamusume) for providing the character and relationship data.
